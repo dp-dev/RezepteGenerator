@@ -9,9 +9,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public abstract class AbstractParser {
-	EventLog log = null;
-	Rezeptdaten rezeptdaten = null;
-	Document doc = null;
+	protected EventLog log = null;
+	protected Rezeptdaten rezeptdaten = null;
+	protected Document doc = null;
 	
 	public AbstractParser(EventLog log, Rezeptdaten rezeptdaten, boolean validate) {
 		this.log = log;

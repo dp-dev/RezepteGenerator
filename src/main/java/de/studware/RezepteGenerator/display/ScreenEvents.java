@@ -12,8 +12,8 @@ import de.studware.RezepteGenerator.util.EventLog;
 import de.studware.RezepteGenerator.util.ParserHandler;
 
 public class ScreenEvents implements ActionListener {
-	EventLog log;
-	MainScreen mainscreen;
+	private EventLog log;
+	private MainScreen mainscreen;
 	
 	public ScreenEvents(EventLog log) {
 		this.log = log;

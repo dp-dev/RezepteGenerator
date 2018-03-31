@@ -8,8 +8,8 @@ import de.studware.RezepteGenerator.parser.RezepteWeltParser;
 import de.studware.RezepteGenerator.pdf.PDFCreator;
 
 public class ParserHandler implements Runnable {
-	EventLog log = null;
-	Rezeptdaten rezeptdaten = null;
+	private EventLog log = null;
+	private Rezeptdaten rezeptdaten = null;
 	
 	public ParserHandler(EventLog log) {
 		this.log = log;

@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -21,13 +23,14 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class MainScreen extends JFrame {
 	private JScrollPane scroll;
 	private JTextArea taInfo;
-	private JButton btPdf, btClear, btReportError;
+	private JLabel lbInfo;
+	private JButton btPdf;
 	
 	public MainScreen(ScreenEvents screenEvents) {
 		screenEvents.addEventToLog(this, "Displaying screen");
 		this.setTitle("Rezepte Generator");
-		this.setSize(500, 300);
-		this.setMinimumSize(new Dimension(400, 300));
+		this.setSize(640, 480);
+		this.setMinimumSize(new Dimension(550, 300));
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout(5, 5));
@@ -75,15 +78,8 @@ public class MainScreen extends JFrame {
 		pTop.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
 		this.add(pTop, BorderLayout.NORTH);
 		
-		btClear = new JButton("Alles zurücksetzen");
-		btClear.addActionListener(screenEvents);
-		btClear.setActionCommand("RESET_ALL");
-		pTop.add(btClear, BorderLayout.WEST);
-		
-		btReportError = new JButton("Fehler melden");
-		btReportError.addActionListener(screenEvents);
-		btReportError.setActionCommand("REPORT_ERROR");
-		pTop.add(btReportError, BorderLayout.EAST);
+		lbInfo = new JLabel("Link in die Zwischenablage kopieren. Danach Button anklicken, um das PDF Dokument zu erzeugen.", SwingConstants.CENTER);
+		pTop.add(lbInfo, BorderLayout.CENTER);
 		
 		// Center
 		JPanel pCenter = new JPanel();
