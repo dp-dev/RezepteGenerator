@@ -18,14 +18,23 @@ public class ParserHandler implements Runnable {
 	@Override
 	public void run() {
 		AbstractParser parser = null;
-		PDFCreator creater = null;
+		PDFCreator creator = null;
 		String urlpath = ClipboardUrlGetter.getURL(log);
-		if (urlpath == null) {
-			Thread.currentThread().interrupt();
-		} else {
-			rezeptdaten = new Rezeptdaten(urlpath);
-		}
+		
+		checkIfNullAndExit(urlpath);
+		rezeptdaten = new Rezeptdaten(urlpath);
 		parser = chooseParser();
+		checkIfNullAndExit(parser.toString());
+		creator = new PDFCreator(log,rezeptdaten);
+		creator.createFolder();
+		creator.createFile();
+	}
+	
+	private void checkIfNullAndExit(String text) {
+		if (text == null) {
+			log.addEvent(this, "Problem encountered: null value!");
+			Thread.currentThread().interrupt();
+		}		
 	}
 	
 	private AbstractParser chooseParser() {

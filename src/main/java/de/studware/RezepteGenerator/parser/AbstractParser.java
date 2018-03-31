@@ -25,6 +25,7 @@ public abstract class AbstractParser {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public boolean getOnlineContent() {
 		log.addEvent(this, "Tries to get content from the web");
 		try {
