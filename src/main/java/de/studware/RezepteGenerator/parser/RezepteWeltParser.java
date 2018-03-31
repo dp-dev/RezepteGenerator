@@ -41,7 +41,6 @@ public class RezepteWeltParser extends AbstractParser {
 		Element entireElement = element.getElementsByAttribute("title").first();
 		String title = entireElement.attr("title");
 		if (!title.contains("emoticons")) {
-			System.out.println(title);
 			switch (title) {
 				case "Mixtopf geschlossen":
 				case "Closed lid":
@@ -114,9 +113,5 @@ public class RezepteWeltParser extends AbstractParser {
 				rezeptdaten.addAdditionalInfo(info);
 			}
 		}
-		for (String element : rezeptdaten.getInstructionSteps()) {
-			System.out.println(element);
-		}
 	}
-	
 }
