@@ -9,7 +9,7 @@ import de.studware.RezepteGenerator.util.EventLog;
 public class RezepteWeltParser extends AbstractParser {
 	
 	public RezepteWeltParser(EventLog log, Rezeptdaten rezeptdaten) {
-		super(log, rezeptdaten);
+		super(log, rezeptdaten, false);
 	}
 	
 	private void checkStepsforImages(Elements steps) {

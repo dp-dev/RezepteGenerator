@@ -9,7 +9,7 @@ import de.studware.RezepteGenerator.util.EventLog;
 public class KuechenfeeParser extends AbstractParser{
 
 	public KuechenfeeParser(EventLog log, Rezeptdaten rezeptdaten) {
-		super(log, rezeptdaten);
+		super(log, rezeptdaten, false);
 	}
 
 	@Override
