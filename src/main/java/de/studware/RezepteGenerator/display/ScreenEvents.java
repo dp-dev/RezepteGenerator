@@ -24,6 +24,10 @@ public class ScreenEvents implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
+			case "RESET_ALL":
+				log.addEvent(mainscreen, "Clear Textfield");
+				mainscreen.resetTextArea();
+				break;
 			case "CLOSE":
 				log.addEvent(mainscreen, "Close window");
 				mainscreen.dispatchEvent(new WindowEvent(mainscreen, WindowEvent.WINDOW_CLOSING));
@@ -47,7 +51,7 @@ public class ScreenEvents implements ActionListener {
 				}
 				mainscreen.showEvents(log.getAllEvents());
 				break;
-		}		
+		}
 	}
 	
 	public void addEventToLog(Object obj, String event) {

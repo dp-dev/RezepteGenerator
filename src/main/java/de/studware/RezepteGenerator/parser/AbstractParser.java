@@ -17,7 +17,9 @@ public abstract class AbstractParser {
 		this.log = log;
 		this.rezeptdaten = rezeptdaten;
 		if (getOnlineContent()) {
+			log.addEvent(this, "Parses online document");
 			parseDocument();
+			log.addEvent(this, "Finished parsing");
 		} else {
 			Thread.currentThread().interrupt();
 		}
@@ -26,7 +28,7 @@ public abstract class AbstractParser {
 	public boolean getOnlineContent() {
 		log.addEvent(this, "Tries to get content from the web");
 		try {
-			doc = Jsoup.connect(rezeptdaten.getUrlpath()).get();
+			doc = Jsoup.connect(rezeptdaten.getUrlpath()).timeout(10000).validateTLSCertificates(false).get();
 			return true;
 		} catch (IOException e) {
 			log.addEvent(this, "Problem with getting content from web");

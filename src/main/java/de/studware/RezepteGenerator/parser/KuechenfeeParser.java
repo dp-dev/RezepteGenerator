@@ -14,8 +14,6 @@ public class KuechenfeeParser extends AbstractParser{
 
 	@Override
 	public void parseDocument() {
-		log.addEvent(this, "Parses online document");
-
 		// Get Titel
 		Element entireTitle = doc.getElementsByClass("post-title").first();
 		rezeptdaten.setRezeptTitle(entireTitle.text());
@@ -32,10 +30,6 @@ public class KuechenfeeParser extends AbstractParser{
 		Elements steps = entireSteps.getElementsByTag("li");
 		for (Element step : steps) {
 			rezeptdaten.addInstructionStep(step.text());
-		}
-		log.addEvent(this, "Finished parsing");
-		for (String element : rezeptdaten.getIngredientsList()) {
-			System.out.println(element);
 		}
 	}
 	
