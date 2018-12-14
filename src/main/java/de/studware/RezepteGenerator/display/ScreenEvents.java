@@ -1,4 +1,4 @@
-package de.studware.RezepteGenerator.display;
+package de.studware.rezeptegenerator.display;
 
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -10,11 +10,11 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import de.studware.RezepteGenerator.util.EventLog;
-import de.studware.RezepteGenerator.util.ParserHandler;
+import de.studware.rezeptegenerator.util.EventLog;
+import de.studware.rezeptegenerator.util.ParserHandler;
 
 public class ScreenEvents implements ActionListener {
-	private Logger logger = Logger.getLogger(ScreenEvents.class.getName());
+	private static final Logger logger = Logger.getLogger(ScreenEvents.class.getName());
 	private EventLog log;
 	private MainScreen mainscreen;
 	

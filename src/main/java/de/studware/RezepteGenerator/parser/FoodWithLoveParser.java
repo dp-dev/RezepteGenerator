@@ -1,4 +1,4 @@
-package de.studware.RezepteGenerator.parser;
+package de.studware.rezeptegenerator.parser;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import de.studware.RezepteGenerator.Rezeptdaten;
-import de.studware.RezepteGenerator.util.EventLog;
+import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.util.EventLog;
 
 public class FoodWithLoveParser extends AbstractParser {
 	

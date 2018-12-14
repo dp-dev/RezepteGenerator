@@ -1,4 +1,4 @@
-package de.studware.RezepteGenerator.display;
+package de.studware.rezeptegenerator.display;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -23,7 +23,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 @SuppressWarnings("serial")
 public class MainScreen extends JFrame {
-	private Logger logger = Logger.getLogger(MainScreen.class.getName());
+	private static final Logger logger = Logger.getLogger(MainScreen.class.getName());
 	private JScrollPane scroll;
 	private JTextArea taInfo;
 	private JLabel lbInfo;

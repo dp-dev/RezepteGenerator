@@ -1,4 +1,4 @@
-package de.studware.RezepteGenerator.pdf;
+package de.studware.rezeptegenerator.pdf;
 
 import java.awt.Desktop;
 import java.io.File;
@@ -15,11 +15,11 @@ import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import de.studware.RezepteGenerator.Rezeptdaten;
-import de.studware.RezepteGenerator.util.EventLog;
+import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.util.EventLog;
 
 public class PDFCreator {
-	private Logger logger = Logger.getLogger(PDFCreator.class.getName());
+	private static final Logger logger = Logger.getLogger(PDFCreator.class.getName());
 	private EventLog log = null;
 	private Rezeptdaten rezeptdaten = null;
 	private FileFolder util = null;

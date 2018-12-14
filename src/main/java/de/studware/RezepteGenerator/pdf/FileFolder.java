@@ -1,9 +1,9 @@
-package de.studware.RezepteGenerator.pdf;
+package de.studware.rezeptegenerator.pdf;
 
 import java.io.File;
 
-import de.studware.RezepteGenerator.Rezeptdaten;
-import de.studware.RezepteGenerator.util.EventLog;
+import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.util.EventLog;
 
 public class FileFolder {
 	private EventLog log = null;

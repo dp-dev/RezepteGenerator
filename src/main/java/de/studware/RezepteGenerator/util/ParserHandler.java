@@ -1,11 +1,11 @@
-package de.studware.RezepteGenerator.util;
+package de.studware.rezeptegenerator.util;
 
-import de.studware.RezepteGenerator.Rezeptdaten;
-import de.studware.RezepteGenerator.parser.AbstractParser;
-import de.studware.RezepteGenerator.parser.KuechenfeeParser;
-import de.studware.RezepteGenerator.parser.FoodWithLoveParser;
-import de.studware.RezepteGenerator.parser.RezepteWeltParser;
-import de.studware.RezepteGenerator.pdf.PDFCreator;
+import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.parser.AbstractParser;
+import de.studware.rezeptegenerator.parser.FoodWithLoveParser;
+import de.studware.rezeptegenerator.parser.KuechenfeeParser;
+import de.studware.rezeptegenerator.parser.RezepteWeltParser;
+import de.studware.rezeptegenerator.pdf.PDFCreator;
 
 public class ParserHandler implements Runnable {
 	private EventLog log = null;

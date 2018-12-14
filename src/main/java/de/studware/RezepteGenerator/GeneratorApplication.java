@@ -1,7 +1,7 @@
-package de.studware.RezepteGenerator;
+package de.studware.rezeptegenerator;
 
-import de.studware.RezepteGenerator.display.ScreenEvents;
-import de.studware.RezepteGenerator.util.EventLog;
+import de.studware.rezeptegenerator.display.ScreenEvents;
+import de.studware.rezeptegenerator.util.EventLog;
 
 public class GeneratorApplication {
 	private EventLog log;

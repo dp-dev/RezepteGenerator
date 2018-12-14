@@ -1,4 +1,4 @@
-package de.studware.RezepteGenerator;
+package de.studware.rezeptegenerator;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,7 @@
-package de.studware.RezepteGenerator.parser;
+package de.studware.rezeptegenerator.parser;
 
-import de.studware.RezepteGenerator.Rezeptdaten;
-import de.studware.RezepteGenerator.util.EventLog;
+import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.util.EventLog;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -11,7 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public abstract class AbstractParser {
-	private Logger logger = Logger.getLogger(AbstractParser.class.getName());
+	private static final Logger logger = Logger.getLogger(AbstractParser.class.getName());
 	protected EventLog log = null;
 	protected Rezeptdaten rezeptdaten = null;
 	protected Document doc = null;

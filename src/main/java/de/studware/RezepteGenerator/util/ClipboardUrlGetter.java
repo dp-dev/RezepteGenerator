@@ -1,4 +1,4 @@
-package de.studware.RezepteGenerator.util;
+package de.studware.rezeptegenerator.util;
 
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class ClipboardUrlGetter {
 	
 	public static String getURL(EventLog log) {
-		Logger logger = Logger.getLogger(ClipboardUrlGetter.class.getName());
+		final Logger logger = Logger.getLogger(ClipboardUrlGetter.class.getName());
 		try {
 			log.addEvent(log, "Get content from clipboard");
 			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
