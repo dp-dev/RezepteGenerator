@@ -24,10 +24,14 @@ public class ParserHandler implements Runnable {
 		checkIfNullAndExit(urlpath);
 		rezeptdaten = new Rezeptdaten(urlpath);
 		parser = chooseParser();
+		if(parser != null) {
 		checkIfNullAndExit(parser.toString());
 		creator = new PDFCreator(log,rezeptdaten);
 		creator.createFolder();
 		creator.createFile();
+		} else {
+			throw new UnsupportedOperationException("No parser was found");
+		}
 	}
 	
 	private void checkIfNullAndExit(String text) {

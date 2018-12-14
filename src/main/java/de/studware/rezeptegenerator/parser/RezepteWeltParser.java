@@ -23,8 +23,10 @@ public class RezepteWeltParser extends AbstractParser {
 			String ausgabe = "";
 			String text = "";
 			if (!images.isEmpty()) {
-				text = neu.text().replaceAll("\u00a0", " ");
-				ausgabe = text.replace(".", ". ");
+				if (neu != null) {
+					text = neu.text().replaceAll("\u00a0", " ");
+					ausgabe = text.replace(".", ". ");
+				}
 			} else {
 				if (!element.text().isEmpty()) {
 					text = element.text().replaceAll("\u00a0", " ");

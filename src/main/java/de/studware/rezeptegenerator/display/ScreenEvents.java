@@ -47,9 +47,7 @@ public class ScreenEvents implements ActionListener {
 			case "CREATE_PDF":
 				log.addEvent(mainscreen, "PDF creation started");
 				try {
-					Thread thread = new Thread(new ParserHandler(log));
-					thread.start();
-					thread.join();
+					startExecutionThread();
 				} catch (InterruptedException e) {
 					logger.log(Level.SEVERE, "Creation of pdf failed due to a problem with the thread", e);
 				}
@@ -63,6 +61,12 @@ public class ScreenEvents implements ActionListener {
 	
 	public void addEventToLog(Object obj, String event) {
 		log.addEvent(obj, event);
+	}
+	
+	private void startExecutionThread() throws InterruptedException {
+		Thread thread = new Thread(new ParserHandler(log));
+		thread.start();
+		thread.join();
 	}
 	
 }
