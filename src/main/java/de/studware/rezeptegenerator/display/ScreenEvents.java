@@ -46,15 +46,11 @@ public class ScreenEvents implements ActionListener {
 				break;
 			case "CREATE_PDF":
 				log.addEvent(mainscreen, "PDF creation started");
-				try {
-					startExecutionThread();
-				} catch (InterruptedException e) {
-					logger.log(Level.SEVERE, "Creation of pdf failed due to a problem with the thread", e);
-				}
+				startExecutionThread();
 				mainscreen.showEvents(log.getAllEvents());
 				break;
 			default:
-				logger.log(Level.INFO, "No Action found for action command: ", event.getActionCommand());
+				logger.log(Level.INFO, "No Action found for action command: {0}", event.getActionCommand());
 				break;
 		}
 	}
@@ -63,10 +59,15 @@ public class ScreenEvents implements ActionListener {
 		log.addEvent(obj, event);
 	}
 	
-	private void startExecutionThread() throws InterruptedException {
-		Thread thread = new Thread(new ParserHandler(log));
-		thread.start();
-		thread.join();
+	private void startExecutionThread() {
+		try {
+			Thread thread = new Thread(new ParserHandler(log));
+			thread.start();
+			thread.join();
+		} catch (InterruptedException e) {
+			logger.log(Level.SEVERE, "Creation of pdf failed due to a problem with the thread", e);
+			Thread.currentThread().interrupt();
+		}
 	}
 	
 }

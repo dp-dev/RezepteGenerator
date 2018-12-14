@@ -20,10 +20,12 @@ import de.studware.rezeptegenerator.util.EventLog;
 
 public class PDFCreator {
 	private static final Logger logger = Logger.getLogger(PDFCreator.class.getName());
+	private static final String SOFTWARE_INFO = "JAVA RezepteCooker";
+	private static final String SYMBOL_BULLET = "\\u2022";
 	private EventLog log = null;
 	private Rezeptdaten rezeptdaten = null;
 	private FileFolder util = null;
-	private static final String SOFTWARE_INFO = "JAVA RezepteCooker";
+
 
 	private static final Font DOCFONT_HEADING = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
 	private static final Font DOCFONT_SUBHEADING = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
@@ -45,13 +47,14 @@ public class PDFCreator {
 		try {
 			String filename = createFileName();
 			Document document = new Document();
-			PdfWriter.getInstance(document, new FileOutputStream(util.getFolder().getAbsolutePath() + "\\" + filename));
+			String filepath = util.getFolder().getAbsolutePath() + "\\" + filename;
+			PdfWriter.getInstance(document, new FileOutputStream(filepath));
 			document.open();
 			addMetaInfos(document);
 			addContent(document);
 			document.close();
 			// Open PDF file after creation
-			Desktop.getDesktop().open(new File(util.getFolder().getAbsolutePath() + "\\" + filename));
+			Desktop.getDesktop().open(new File(filepath));
 		} catch (DocumentException | IOException e) {
 			log.addEvent(this, "Problem with the PDFWriter instance");
 			logger.log(Level.SEVERE, "Problem occurred with the PDFWriter instance", e);
@@ -92,57 +95,57 @@ public class PDFCreator {
 		document.add(addEmptyLine(1));
 		
 		document.add(new Paragraph("Zutaten:", DOCFONT_SUBHEADING));
-		List list_Ingredients = new List(12);
-		list_Ingredients.setListSymbol("\u2022");
+		List listIngredients = new List(12);
+		listIngredients.setListSymbol(SYMBOL_BULLET);
 		for (String ingredient : rezeptdaten.getIngredientsList()) {
-			list_Ingredients.add(new ListItem(ingredient, DOCFONT_NORMAL));
+			listIngredients.add(new ListItem(ingredient, DOCFONT_NORMAL));
 		}
-		document.add(list_Ingredients);
+		document.add(listIngredients);
 		
 		document.add(new Paragraph("Zubereitung:", DOCFONT_SUBHEADING));
-		List list_Instructions = new List(12);
-		list_Instructions.setListSymbol("\u2022");
+		List listInstructions = new List(12);
+		listInstructions.setListSymbol(SYMBOL_BULLET);
 		for (String step : rezeptdaten.getInstructionSteps()) {
-			list_Instructions.add(new ListItem(step, DOCFONT_NORMAL));
+			listInstructions.add(new ListItem(step, DOCFONT_NORMAL));
 		}
-		document.add(list_Instructions);
+		document.add(listInstructions);
 		log.addEvent(this, "Ingredients, Instructions added");
 
-		if (rezeptdaten.getHelpingTools().size() > 0) {
+		if (!rezeptdaten.getHelpingTools().isEmpty()) {
 			document.add(addEmptyLine(1));
 			document.add(new Paragraph("Hilfsmittel:", DOCFONT_SUBHEADING));
-			List list_HelpTools = new List(12);
-			list_HelpTools.setListSymbol("\u2022");
+			List listHelpTools = new List(12);
+			listHelpTools.setListSymbol(SYMBOL_BULLET);
 			for (String tools : rezeptdaten.getHelpingTools()) {
-				list_HelpTools.add(new ListItem(tools, DOCFONT_NORMAL));
+				listHelpTools.add(new ListItem(tools, DOCFONT_NORMAL));
 			}
-			document.add(list_HelpTools);
+			document.add(listHelpTools);
 			log.addEvent(this, "Helping tools added");
 		}
 		
-		if (rezeptdaten.getCookTimes().size() > 0) {
+		if (!rezeptdaten.getCookTimes().isEmpty()) {
 			document.add(addEmptyLine(1));
 			document.add(new Paragraph("Kochzeit " + rezeptdaten.getCookTimes().get(0), DOCFONT_SUBHEADING));
-			List list_Times = new List(12);
-			list_Times.setListSymbol("\u2022");
+			List listTimes = new List(12);
+			listTimes.setListSymbol(SYMBOL_BULLET);
 			for (String time : rezeptdaten.getCookTimes()) {
 				if (!time.equals(rezeptdaten.getCookTimes().get(0))) {
-					list_Times.add(new ListItem(time, DOCFONT_NORMAL));
+					listTimes.add(new ListItem(time, DOCFONT_NORMAL));
 				}
 			}
-			document.add(list_Times);
+			document.add(listTimes);
 			log.addEvent(this, "Cooking Times added");
 		}
 		
-		if (rezeptdaten.getAdditionalInfos().size() > 0) {
+		if (!rezeptdaten.getAdditionalInfos().isEmpty()) {
 			document.add(addEmptyLine(1));
 			document.add(new Paragraph("Zusätzliche Infos", DOCFONT_SUBHEADING));
-			List list_Infos = new List(12);
-			list_Infos.setListSymbol("\u2022");
+			List listInfos = new List(12);
+			listInfos.setListSymbol(SYMBOL_BULLET);
 			for (String info : rezeptdaten.getAdditionalInfos()) {
-				list_Infos.add(new ListItem(info, DOCFONT_NORMAL));
+				listInfos.add(new ListItem(info, DOCFONT_NORMAL));
 			}
-			document.add(list_Infos);
+			document.add(listInfos);
 			log.addEvent(this, "Additional Infos added");
 		}
 	}

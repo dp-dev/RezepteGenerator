@@ -5,7 +5,7 @@ import java.util.List;
 
 public class EventLog {
 	private ArrayList<String> events;
-	private final static String SEPERATOR = " |> ";
+	private static final String SEPERATOR = " |> ";
 	
 	public EventLog() {
 		events = new ArrayList<>();

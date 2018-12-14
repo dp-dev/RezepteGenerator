@@ -28,7 +28,7 @@ public class FoodWithLoveParser extends AbstractParser {
 		for (int i = 0; i < liste.size(); i++) {
 			currentIndex++;
 			if(liste.get(i).text().contains("Ihr benötigt")) {
-				i = liste.size();
+				break;
 			}
 		}
 		extractIngredients(liste.get(currentIndex).toString());
