@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 @SuppressWarnings("serial")
 public class MainScreen extends JFrame {
+	private Logger logger = Logger.getLogger(MainScreen.class.getName());
 	private JScrollPane scroll;
 	private JTextArea taInfo;
 	private JLabel lbInfo;
@@ -37,7 +40,7 @@ public class MainScreen extends JFrame {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "UIManager failed by setup of look and feel of operating system ", e);
 		}
 		
 		// Menu

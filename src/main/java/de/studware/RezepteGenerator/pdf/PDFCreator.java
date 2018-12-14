@@ -4,6 +4,8 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -17,6 +19,7 @@ import de.studware.RezepteGenerator.Rezeptdaten;
 import de.studware.RezepteGenerator.util.EventLog;
 
 public class PDFCreator {
+	private Logger logger = Logger.getLogger(PDFCreator.class.getName());
 	private EventLog log = null;
 	private Rezeptdaten rezeptdaten = null;
 	private FileFolder util = null;
@@ -50,8 +53,8 @@ public class PDFCreator {
 			// Open PDF file after creation
 			Desktop.getDesktop().open(new File(util.getFolder().getAbsolutePath() + "\\" + filename));
 		} catch (DocumentException | IOException e) {
-			log.addEvent(this, "Problem with the PDFWriter Instance");
-			e.printStackTrace();
+			log.addEvent(this, "Problem with the PDFWriter instance");
+			logger.log(Level.SEVERE, "Problem occurred with the PDFWriter instance", e);
 		}
 	}
 

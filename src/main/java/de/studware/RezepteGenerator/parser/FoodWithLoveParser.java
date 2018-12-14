@@ -43,7 +43,7 @@ public class FoodWithLoveParser extends AbstractParser {
 
 	private void extractIngredients(String text) {
 		String line = text.replaceFirst("<p>", "");
-		line.replace("</p>", "");
+		line = line.replace("</p>", "");
 		String[] ingredientList = line.split("<br> ");
 		for (String ingredient : ingredientList) {
 			rezeptdaten.addIngredientsToList(removeHTML(ingredient));

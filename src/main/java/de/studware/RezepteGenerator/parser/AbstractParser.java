@@ -4,11 +4,14 @@ import de.studware.RezepteGenerator.Rezeptdaten;
 import de.studware.RezepteGenerator.util.EventLog;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 public abstract class AbstractParser {
+	private Logger logger = Logger.getLogger(AbstractParser.class.getName());
 	protected EventLog log = null;
 	protected Rezeptdaten rezeptdaten = null;
 	protected Document doc = null;
@@ -33,7 +36,7 @@ public abstract class AbstractParser {
 			return true;
 		} catch (IOException e) {
 			log.addEvent(this, "Problem with getting content from web");
-			e.printStackTrace();
+			logger.log(Level.SEVERE, "Problem encountered while getting content from the website", e);
 		}
 		return false;
 	}

@@ -7,11 +7,14 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import de.studware.RezepteGenerator.util.EventLog;
 import de.studware.RezepteGenerator.util.ParserHandler;
 
 public class ScreenEvents implements ActionListener {
+	private Logger logger = Logger.getLogger(ScreenEvents.class.getName());
 	private EventLog log;
 	private MainScreen mainscreen;
 	
@@ -22,8 +25,8 @@ public class ScreenEvents implements ActionListener {
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
+	public void actionPerformed(ActionEvent event) {
+		switch (event.getActionCommand()) {
 			case "RESET_ALL":
 				log.addEvent(mainscreen, "Clear Textfield");
 				mainscreen.resetTextArea();
@@ -36,18 +39,18 @@ public class ScreenEvents implements ActionListener {
 				log.addEvent(mainscreen, "Open Error report");
 				try {
 					Desktop.getDesktop().browse(new URI("https://github.com/dp-dev/RezepteGenerator/issues"));
-				} catch (IOException | URISyntaxException ex) {
-					ex.printStackTrace();
+				} catch (IOException | URISyntaxException e) {
+					logger.log(Level.SEVERE, "Application could not open github website", e);
 				}
 				break;
 			case "CREATE_PDF":
 				log.addEvent(mainscreen, "PDF creation started");
 				try {
-					Thread t = new Thread(new ParserHandler(log));
-					t.start();
-					t.join();
-				} catch (InterruptedException ex) {
-					ex.printStackTrace();
+					Thread thread = new Thread(new ParserHandler(log));
+					thread.start();
+					thread.join();
+				} catch (InterruptedException e) {
+					logger.log(Level.SEVERE, "Creation of pdf failed due to a problem with the thread", e);
 				}
 				mainscreen.showEvents(log.getAllEvents());
 				break;
