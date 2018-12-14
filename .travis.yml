@@ -4,7 +4,6 @@ jdk:
   - oraclejdk9
   - openjdk8
 sudo: false
-before_script: cd TestingTravis
 install: true
 addons:
   sonarcloud:
