@@ -8,7 +8,7 @@
 	<version>0.1.1</version>
 	<packaging>jar</packaging>
 
-	<name>rezeptegenerator</name>
+	<name>RezepteGenerator</name>
 	<url>http://www.studware.de</url>
 
 	<properties>
