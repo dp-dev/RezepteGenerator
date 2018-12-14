@@ -1,16 +1,17 @@
 package de.studware.rezeptegenerator.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventLog {
 	private ArrayList<String> events;
-	private String SEPERATOR = " |> ";
+	private final static String SEPERATOR = " |> ";
 	
 	public EventLog() {
 		events = new ArrayList<>();
 	}
 	
-	public ArrayList<String> getAllEvents() {
+	public List<String> getAllEvents() {
 		return events;
 	}
 	
@@ -22,12 +23,5 @@ public class EventLog {
 		builder.append(SEPERATOR);
 		builder.append(event);
 		events.add(builder.toString());
-	}
-	
-	public void printAllEventsConsole() {
-		for (String event : events) {
-			System.out.println(event);
-		}
-		System.out.println("--");
 	}
 }

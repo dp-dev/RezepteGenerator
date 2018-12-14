@@ -1,6 +1,6 @@
 # Rezepte Generator
 
-[![Build Status](https://travis-ci.org/dp-dev/RezepteGenerator.svg?branch=master)](https://travis-ci.org/dp-dev/RezepteGenerator) [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=de.studware%3ARezepteGenerator&metric=alert_status)](https://sonarcloud.io/dashboard?id=de.studware%3ARezepteGenerator)
+[![Build Status](https://travis-ci.org/dp-dev/RezepteGenerator.svg?branch=master)](https://travis-ci.org/dp-dev/RezepteGenerator) [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=de.studware%3Arezeptegenerator&metric=alert_status)](https://sonarcloud.io/dashboard?id=de.studware%3Arezeptegenerator)
 
 A small JAVA Tool to parse website content (recipes) from the following sites to a PDF file:
 
