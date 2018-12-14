@@ -23,12 +23,12 @@ public class PDFCreator {
 	private EventLog log = null;
 	private Rezeptdaten rezeptdaten = null;
 	private FileFolder util = null;
-	private static String SOFTWARE_INFO = "JAVA RezepteCooker";
+	private static final String SOFTWARE_INFO = "JAVA RezepteCooker";
 
-	private static Font DOCFONT_HEADING = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
-	private static Font DOCFONT_SUBHEADING = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
-	private static Font DOCFONT_NORMAL = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
-	private static Font DOCFONT_SMALL = new Font(Font.FontFamily.HELVETICA, 8, Font.ITALIC);
+	private static final Font DOCFONT_HEADING = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+	private static final Font DOCFONT_SUBHEADING = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
+	private static final Font DOCFONT_NORMAL = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
+	private static final Font DOCFONT_SMALL = new Font(Font.FontFamily.HELVETICA, 8, Font.ITALIC);
 	
 	public PDFCreator(EventLog log, Rezeptdaten rezeptdaten) {
 		this.log = log;

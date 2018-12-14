@@ -17,6 +17,7 @@ public class ScreenEvents implements ActionListener {
 	private static final Logger logger = Logger.getLogger(ScreenEvents.class.getName());
 	private EventLog log;
 	private MainScreen mainscreen;
+	private String urlGithub = "https://github.com/dp-dev/RezepteGenerator/issues";
 	
 	public ScreenEvents(EventLog log) {
 		this.log = log;
@@ -38,7 +39,7 @@ public class ScreenEvents implements ActionListener {
 			case "REPORT_ERROR":
 				log.addEvent(mainscreen, "Open Error report");
 				try {
-					Desktop.getDesktop().browse(new URI("https://github.com/dp-dev/RezepteGenerator/issues"));
+					Desktop.getDesktop().browse(new URI(urlGithub));
 				} catch (IOException | URISyntaxException e) {
 					logger.log(Level.SEVERE, "Application could not open github website", e);
 				}
@@ -53,6 +54,9 @@ public class ScreenEvents implements ActionListener {
 					logger.log(Level.SEVERE, "Creation of pdf failed due to a problem with the thread", e);
 				}
 				mainscreen.showEvents(log.getAllEvents());
+				break;
+			default:
+				logger.log(Level.INFO, "No Action found for action command: ", event.getActionCommand());
 				break;
 		}
 	}

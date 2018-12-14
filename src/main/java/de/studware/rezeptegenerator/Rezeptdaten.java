@@ -1,9 +1,11 @@
 package de.studware.rezeptegenerator;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Rezeptdaten {
-	private String urlpath, rezeptTitle;
+	private String urlpath;
+	private String rezeptTitle;
 	private ArrayList<String> ingredientsList = new ArrayList<>();
 	private ArrayList<String> instructionSteps = new ArrayList<>();
 	private ArrayList<String> helpingTools = new ArrayList<>();
@@ -26,7 +28,7 @@ public class Rezeptdaten {
 		this.rezeptTitle = rezeptTitle;
 	}
 	
-	public ArrayList<String> getIngredientsList() {
+	public List<String> getIngredientsList() {
 		return ingredientsList;
 	}
 	
@@ -34,7 +36,7 @@ public class Rezeptdaten {
 		this.ingredientsList.add(ingredient);
 	}
 	
-	public ArrayList<String> getInstructionSteps() {
+	public List<String> getInstructionSteps() {
 		return instructionSteps;
 	}
 	
@@ -42,7 +44,7 @@ public class Rezeptdaten {
 		this.instructionSteps.add(step);
 	}
 	
-	public ArrayList<String> getHelpingTools() {
+	public List<String> getHelpingTools() {
 		return helpingTools;
 	}
 	
@@ -50,7 +52,7 @@ public class Rezeptdaten {
 		this.helpingTools.add(helpingTool);
 	}
 	
-	public ArrayList<String> getCookTimes() {
+	public List<String> getCookTimes() {
 		return cookTimes;
 	}
 	
@@ -58,7 +60,7 @@ public class Rezeptdaten {
 		this.cookTimes.add(cookTime);
 	}
 	
-	public ArrayList<String> getAdditionalInfos() {
+	public List<String> getAdditionalInfos() {
 		return additionalInfos;
 	}
 	

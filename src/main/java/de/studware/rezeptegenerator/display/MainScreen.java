@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -48,32 +49,32 @@ public class MainScreen extends JFrame {
 		this.setJMenuBar(menuBar);
 		
 		// First Menu
-		JMenu m_file = new JMenu("Datei");
-		m_file.setMnemonic(KeyEvent.VK_D);
-		menuBar.add(m_file);
+		JMenu mFile = new JMenu("Datei");
+		mFile.setMnemonic(KeyEvent.VK_D);
+		menuBar.add(mFile);
 		
-		JMenuItem mi_resetAll = new JMenuItem("Alles zurücksetzen");
-		mi_resetAll.addActionListener(screenEvents);
-		mi_resetAll.setActionCommand("RESET_ALL");
-		m_file.add(mi_resetAll);
+		JMenuItem miResetAll = new JMenuItem("Alles zurücksetzen");
+		miResetAll.addActionListener(screenEvents);
+		miResetAll.setActionCommand("RESET_ALL");
+		mFile.add(miResetAll);
 		
-		m_file.addSeparator();
+		mFile.addSeparator();
 		
-		JMenuItem mi_exit = new JMenuItem("Beenden");
-		mi_exit.addActionListener(screenEvents);
-		mi_exit.setMnemonic(KeyEvent.VK_B);
-		mi_exit.setActionCommand("CLOSE");
-		m_file.add(mi_exit);
+		JMenuItem miExit = new JMenuItem("Beenden");
+		miExit.addActionListener(screenEvents);
+		miExit.setMnemonic(KeyEvent.VK_B);
+		miExit.setActionCommand("CLOSE");
+		mFile.add(miExit);
 		
 		// Second Menu
-		JMenu m_help = new JMenu("Hilfe");
-		m_help.setMnemonic(KeyEvent.VK_H);
-		menuBar.add(m_help);
+		JMenu mHelp = new JMenu("Hilfe");
+		mHelp.setMnemonic(KeyEvent.VK_H);
+		menuBar.add(mHelp);
 		
-		JMenuItem mi_reportError = new JMenuItem("Fehler melden");
-		mi_reportError.addActionListener(screenEvents);
-		mi_reportError.setActionCommand("REPORT_ERROR");
-		m_help.add(mi_reportError);
+		JMenuItem miReportError = new JMenuItem("Fehler melden");
+		miReportError.addActionListener(screenEvents);
+		miReportError.setActionCommand("REPORT_ERROR");
+		mHelp.add(miReportError);
 		
 		// Top
 		JPanel pTop = new JPanel();
@@ -111,7 +112,7 @@ public class MainScreen extends JFrame {
 		btPdf.requestFocus();
 	}
 	
-	public void showEvents(ArrayList<String> events) {
+	public void showEvents(List<String> events) {
 		for (String event : events) {
 			taInfo.append(event + System.lineSeparator());
 		}

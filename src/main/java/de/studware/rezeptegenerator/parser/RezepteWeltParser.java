@@ -20,8 +20,9 @@ public class RezepteWeltParser extends AbstractParser {
 				String newElement = element.toString().replace(elementWithImage.toString(), getImageName(elementWithImage));
 				neu = element.html(newElement);
 			}
-			String ausgabe = "", text = "";
-			if (images.size() > 0) {
+			String ausgabe = "";
+			String text = "";
+			if (!images.isEmpty()) {
 				text = neu.text().replaceAll("\u00a0", " ");
 				ausgabe = text.replace(".", ". ");
 			} else {
@@ -103,14 +104,16 @@ public class RezepteWeltParser extends AbstractParser {
 		Elements additionalInfos = additionalSection.getElementsByClass("media-body");
 		for (Element element : additionalInfos) {
 			if (element.text().contains("min")) {
-				String parts[] = element.text().split("min");
+				String[] parts = element.text().split("min");
 				for (int i = 0; i < parts.length; i++) {
 					rezeptdaten.addCookTime(parts[i].trim() + " Minuten");
 				}
 			} else if (element.toString().contains("smallText")) {
-				String info = element.getElementsByClass("smallText").first().text();
-				info += ": " + element.getElementsByClass("media-heading").first().text();
-				rezeptdaten.addAdditionalInfo(info);
+				StringBuilder builder = new StringBuilder();
+				builder.append(element.getElementsByClass("smallText").first().text());
+				builder.append(": ");
+				builder.append(element.getElementsByClass("media-heading").first().text());
+				rezeptdaten.addAdditionalInfo(builder.toString());
 			}
 		}
 	}
