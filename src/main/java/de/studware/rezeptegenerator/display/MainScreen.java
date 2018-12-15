@@ -23,10 +23,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class MainScreen {
 	private static final Logger logger = Logger.getLogger(MainScreen.class.getName());
-	private JScrollPane scroll;
 	private JTextArea taInfo;
-	private JLabel lbInfo;
-	private JButton btPdf;
 	private JFrame frame = new JFrame("Rezepte Generator");
 	
 	public MainScreen(ScreenEvents screenEvents) {
@@ -98,7 +95,7 @@ public class MainScreen {
 		pTop.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
 		frame.add(pTop, BorderLayout.NORTH);
 		
-		lbInfo = new JLabel("Link in die Zwischenablage kopieren. Danach Button anklicken, um das PDF Dokument zu erzeugen.", SwingConstants.CENTER);
+		JLabel lbInfo = new JLabel("Link in die Zwischenablage kopieren. Danach Button anklicken, um das PDF Dokument zu erzeugen.", SwingConstants.CENTER);
 		pTop.add(lbInfo, BorderLayout.CENTER);
 		
 		// Center
@@ -109,7 +106,7 @@ public class MainScreen {
 		
 		taInfo = new JTextArea();
 		taInfo.setEditable(false);
-		scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setViewportView(taInfo);
 		pCenter.add(scroll, BorderLayout.CENTER);
 		
@@ -119,7 +116,7 @@ public class MainScreen {
 		pBottom.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 		frame.add(pBottom, BorderLayout.SOUTH);
 		
-		btPdf = new JButton("PDF Datei erstellen");
+		JButton btPdf = new JButton("PDF Datei erstellen");
 		btPdf.addActionListener(screenEvents);
 		btPdf.setActionCommand("CREATE_PDF");
 		pBottom.add(btPdf, BorderLayout.CENTER);
