@@ -3,17 +3,17 @@ package de.studware.rezeptegenerator.pdf;
 import java.io.File;
 
 import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.config.RezepteConfig;
 import de.studware.rezeptegenerator.util.EventLog;
 
 public class FileFolder {
-	private EventLog log = null;
-	private Rezeptdaten rezeptdaten = null;
-	private File folder = new File("Rezepte");
+	private EventLog log;
+	private File folder;
 	
 	
-	public FileFolder(EventLog log, Rezeptdaten rezeptdaten) {
+	public FileFolder(EventLog log, RezepteConfig config) {
 		this.log = log;
-		this.rezeptdaten = rezeptdaten;
+		this.folder = new File(config.getProperty("folder.name"));
 	}
 
 	public void createFolder() {
@@ -25,7 +25,7 @@ public class FileFolder {
 		}
 	}
 	
-	public String createFileName() {
+	public String createFileName(Rezeptdaten rezeptdaten) {
 		log.addEvent(this, "Create a new filename");
 		boolean check = true;
 		String name = rezeptdaten.getRezeptTitle().replace("/", "").replace("\\", "");
@@ -42,6 +42,10 @@ public class FileFolder {
 			} while (check);
 		}
 		return temp;
+	}
+	
+	public String getFolderPath() {
+		return folder.getAbsolutePath() + "\\";
 	}
 	
 	public File getFolder() {

@@ -1,6 +1,7 @@
 package de.studware.rezeptegenerator.util;
 
 import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.config.RezepteConfig;
 import de.studware.rezeptegenerator.parser.AbstractParser;
 import de.studware.rezeptegenerator.parser.FoodWithLoveParser;
 import de.studware.rezeptegenerator.parser.KuechenfeeParser;
@@ -8,11 +9,13 @@ import de.studware.rezeptegenerator.parser.RezepteWeltParser;
 import de.studware.rezeptegenerator.pdf.PDFCreator;
 
 public class ParserHandler implements Runnable {
-	private EventLog log = null;
-	private Rezeptdaten rezeptdaten = null;
+	private EventLog log;
+	private Rezeptdaten rezeptdaten;
+	private RezepteConfig config;
 	
-	public ParserHandler(EventLog log) {
+	public ParserHandler(EventLog log, RezepteConfig config) {
 		this.log = log;
+		this.config = config;
 	}
 	
 	@Override
@@ -26,7 +29,7 @@ public class ParserHandler implements Runnable {
 		parser = chooseParser();
 		if (parser != null) {
 			checkIfNullAndExit(parser.toString());
-			creator = new PDFCreator(log, rezeptdaten);
+			creator = new PDFCreator(log, rezeptdaten, config);
 			creator.createFolder();
 			creator.createFile();
 		} else {

@@ -16,12 +16,13 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.config.RezepteConfig;
 import de.studware.rezeptegenerator.util.EventLog;
 
 public class PDFCreator {
 	private static final Logger logger = Logger.getLogger(PDFCreator.class.getName());
 	private static final String SOFTWARE_INFO = "JAVA RezepteCooker";
-	private static final String SYMBOL_BULLET = "\\u2022";
+	private static final String SYMBOL_BULLET = "\u2022";
 	private EventLog log = null;
 	private Rezeptdaten rezeptdaten = null;
 	private FileFolder util = null;
@@ -32,10 +33,10 @@ public class PDFCreator {
 	private static final Font DOCFONT_NORMAL = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
 	private static final Font DOCFONT_SMALL = new Font(Font.FontFamily.HELVETICA, 8, Font.ITALIC);
 	
-	public PDFCreator(EventLog log, Rezeptdaten rezeptdaten) {
+	public PDFCreator(EventLog log, Rezeptdaten rezeptdaten, RezepteConfig config) {
 		this.log = log;
 		this.rezeptdaten = rezeptdaten;
-		util = new FileFolder(log, rezeptdaten);
+		util = new FileFolder(log, config);
 	}
 	
 	public void createFolder() {
@@ -47,7 +48,7 @@ public class PDFCreator {
 		try {
 			String filename = createFileName();
 			Document document = new Document();
-			String filepath = util.getFolder().getAbsolutePath() + "\\" + filename;
+			String filepath = util.getFolderPath() + filename;
 			PdfWriter.getInstance(document, new FileOutputStream(filepath));
 			document.open();
 			addMetaInfos(document);

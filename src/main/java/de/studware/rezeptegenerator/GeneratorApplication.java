@@ -1,19 +1,21 @@
 package de.studware.rezeptegenerator;
 
+import de.studware.rezeptegenerator.config.RezepteConfig;
 import de.studware.rezeptegenerator.display.ScreenEvents;
 import de.studware.rezeptegenerator.util.EventLog;
 
 public class GeneratorApplication {
-	private EventLog log;
+
 	
 	public static void main(String[] args) {
 		new GeneratorApplication();
 	}
 	
 	public GeneratorApplication() {
-		log = new EventLog();
+		EventLog log = new EventLog();
 		log.addEvent(this, "Generator started");
-		new ScreenEvents(log);
+		RezepteConfig config = new RezepteConfig();
+		new ScreenEvents(log, config);
 	}
 	
 }

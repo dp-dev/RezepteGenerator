@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import de.studware.rezeptegenerator.config.RezepteConfig;
 import de.studware.rezeptegenerator.util.EventLog;
 import de.studware.rezeptegenerator.util.ParserHandler;
 
@@ -17,12 +18,13 @@ public class ScreenEvents implements ActionListener {
 	private static final Logger logger = Logger.getLogger(ScreenEvents.class.getName());
 	private EventLog log;
 	private MainScreen mainscreen;
-	private String urlGithub = "https://github.com/dp-dev/RezepteGenerator/issues";
+	private RezepteConfig config;
 	
-	public ScreenEvents(EventLog log) {
+	public ScreenEvents(EventLog log, RezepteConfig config) {
 		this.log = log;
+		this.config = config;
+		this.mainscreen = new MainScreen(this);
 		this.log.addEvent(this, "Ready for screen actions");
-		mainscreen = new MainScreen(this);
 	}
 	
 	@Override
@@ -34,12 +36,12 @@ public class ScreenEvents implements ActionListener {
 				break;
 			case "CLOSE":
 				log.addEvent(mainscreen, "Close window");
-				mainscreen.dispatchEvent(new WindowEvent(mainscreen, WindowEvent.WINDOW_CLOSING));
+				mainscreen.getFrame().dispatchEvent(new WindowEvent(mainscreen.getFrame(), WindowEvent.WINDOW_CLOSING));
 				break;
 			case "REPORT_ERROR":
 				log.addEvent(mainscreen, "Open Error report");
 				try {
-					Desktop.getDesktop().browse(new URI(urlGithub));
+					Desktop.getDesktop().browse(new URI(config.getProperty("github.issues")));
 				} catch (IOException | URISyntaxException e) {
 					logger.log(Level.SEVERE, "Application could not open github website", e);
 				}
@@ -61,7 +63,7 @@ public class ScreenEvents implements ActionListener {
 	
 	private void startExecutionThread() {
 		try {
-			Thread thread = new Thread(new ParserHandler(log));
+			Thread thread = new Thread(new ParserHandler(log, config));
 			thread.start();
 			thread.join();
 		} catch (InterruptedException e) {

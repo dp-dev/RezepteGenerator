@@ -21,22 +21,39 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-@SuppressWarnings("serial")
-public class MainScreen extends JFrame {
+public class MainScreen {
 	private static final Logger logger = Logger.getLogger(MainScreen.class.getName());
 	private JScrollPane scroll;
 	private JTextArea taInfo;
 	private JLabel lbInfo;
 	private JButton btPdf;
+	private JFrame frame = new JFrame("Rezepte Generator");
 	
 	public MainScreen(ScreenEvents screenEvents) {
 		screenEvents.addEventToLog(this, "Displaying screen");
-		this.setTitle("Rezepte Generator");
-		this.setSize(640, 480);
-		this.setMinimumSize(new Dimension(550, 300));
-		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(new BorderLayout(5, 5));
+		initScreen(screenEvents);
+	}
+	
+	public void showEvents(List<String> events) {
+		for (String event : events) {
+			taInfo.append(event + System.lineSeparator());
+		}
+	}
+	
+	public void resetTextArea() {
+		taInfo.setText("");
+	}
+	
+	public JFrame getFrame() {
+		return frame;		
+	}
+	
+	private void initScreen(ScreenEvents screenEvents) {
+		frame.setSize(640, 480);
+		frame.setMinimumSize(new Dimension(550, 300));
+		frame.setLocationRelativeTo(null);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new BorderLayout(5, 5));
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
@@ -45,7 +62,7 @@ public class MainScreen extends JFrame {
 		
 		// Menu
 		JMenuBar menuBar = new JMenuBar();
-		this.setJMenuBar(menuBar);
+		frame.setJMenuBar(menuBar);
 		
 		// First Menu
 		JMenu mFile = new JMenu("Datei");
@@ -79,7 +96,7 @@ public class MainScreen extends JFrame {
 		JPanel pTop = new JPanel();
 		pTop.setLayout(new BorderLayout(5, 5));
 		pTop.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
-		this.add(pTop, BorderLayout.NORTH);
+		frame.add(pTop, BorderLayout.NORTH);
 		
 		lbInfo = new JLabel("Link in die Zwischenablage kopieren. Danach Button anklicken, um das PDF Dokument zu erzeugen.", SwingConstants.CENTER);
 		pTop.add(lbInfo, BorderLayout.CENTER);
@@ -88,7 +105,7 @@ public class MainScreen extends JFrame {
 		JPanel pCenter = new JPanel();
 		pCenter.setLayout(new BorderLayout(5, 5));
 		pCenter.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-		this.add(pCenter, BorderLayout.CENTER);
+		frame.add(pCenter, BorderLayout.CENTER);
 		
 		taInfo = new JTextArea();
 		taInfo.setEditable(false);
@@ -100,24 +117,15 @@ public class MainScreen extends JFrame {
 		JPanel pBottom = new JPanel();
 		pBottom.setLayout(new BorderLayout(5, 5));
 		pBottom.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
-		this.add(pBottom, BorderLayout.SOUTH);
+		frame.add(pBottom, BorderLayout.SOUTH);
 		
 		btPdf = new JButton("PDF Datei erstellen");
 		btPdf.addActionListener(screenEvents);
 		btPdf.setActionCommand("CREATE_PDF");
 		pBottom.add(btPdf, BorderLayout.CENTER);
 		
-		this.setVisible(true);
+		frame.setVisible(true);
 		btPdf.requestFocus();
 	}
 	
-	public void showEvents(List<String> events) {
-		for (String event : events) {
-			taInfo.append(event + System.lineSeparator());
-		}
-	}
-	
-	public void resetTextArea() {
-		taInfo.setText("");
-	}
 }
