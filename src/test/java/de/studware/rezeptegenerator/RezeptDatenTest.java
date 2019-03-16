@@ -9,63 +9,71 @@ import org.junit.Test;
 
 public class RezeptDatenTest {
 	private Rezeptdaten rezeptdaten;
+	private static final String URL = "testurl";
 
 	@Before
 	public void initRezeptdaten() {
-		rezeptdaten = new Rezeptdaten("testUrl");
+		rezeptdaten = new Rezeptdaten(URL);
 	}
 
 	@Test
 	public void testCheckUrl() {
-		assertEquals(rezeptdaten.getUrlpath(), "testUrl");
+		assertEquals(URL, rezeptdaten.getUrlpath());
 	}
 
 	@Test
 	public void testCheckRezeptTitle() {
-		rezeptdaten.setRezeptTitle("RezTitle");
-		assertEquals(rezeptdaten.getRezeptTitle(), "RezTitle");
+		final String TITLE = "RezTitle";
+		rezeptdaten.setRezeptTitle(TITLE);
+		assertEquals(TITLE, rezeptdaten.getRezeptTitle());
 	}
 
 	@Test
 	public void testCheckIngredientsList() {
-		rezeptdaten.addIngredientsToList("Sugar");
+		final String INGREDIENT = "Sugar";
+		rezeptdaten.addIngredientsToList(INGREDIENT);
 		List<String> list = rezeptdaten.getIngredientsList();
-		assertEquals(list.size(), 1);
-		assertEquals(list.get(0), "Sugar");
+		assertEquals(1, list.size());
+		assertEquals(INGREDIENT, list.get(0));
 	}
 
 	@Test
 	public void testCheckInstructionSteps() {
-		rezeptdaten.addInstructionStep("Mix first");
-		rezeptdaten.addInstructionStep("Heat now");
+		final String STEP1 = "Mix first";
+		final String STEP2 = "Heat now";		
+		rezeptdaten.addInstructionStep(STEP1);
+		rezeptdaten.addInstructionStep(STEP2);
 		List<String> list = rezeptdaten.getInstructionSteps();
-		assertEquals(list.size(), 2);
-		assertEquals(list.get(0), "Mix first");
-		assertEquals(list.get(1), "Heat now");
+		assertEquals(2, list.size());
+		assertEquals(STEP1, list.get(0));
+		assertEquals(STEP2, list.get(1));
 	}
 
 	@Test
 	public void testCheckHelpingTools() {
-		rezeptdaten.addHelpingTool("Fork");
+		final String TOOL = "Fork";
+		rezeptdaten.addHelpingTool(TOOL);
 		List<String> list = rezeptdaten.getHelpingTools();
-		assertEquals(list.size(), 1);
-		assertEquals(list.get(0), "Fork");
+		assertEquals(1, list.size());
+		assertEquals(TOOL, list.get(0));
 	}
 
 	@Test
 	public void testCheckCookTime() {
-		rezeptdaten.addCookTime("9 min");
+		final String TIME = "9 min";
+		rezeptdaten.addCookTime(TIME);
 		List<String> list = rezeptdaten.getCookTimes();
-		assertEquals(list.size(), 1);
-		assertEquals(list.get(0), "9 min");
+		assertEquals(1, list.size());
+		assertEquals(TIME, list.get(0));
 	}
 
 	@Test
 	public void testCheckAdditionalInfos() {
-		rezeptdaten.addAdditionalInfo("None");
+		final String INFO = "Cook slowly";
+		rezeptdaten.addAdditionalInfo(INFO);
 		List<String> list = rezeptdaten.getAdditionalInfos();
-		assertEquals(list.size(), 1);
-		assertEquals(list.get(0), "None");
+		assertEquals(1, list.size());
+		assertEquals(INFO, list.get(0));
 	}
 
 }
