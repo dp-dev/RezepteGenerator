@@ -3,12 +3,12 @@ package de.studware.rezeptegenerator.parser;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.data.RecipeData;
 import de.studware.rezeptegenerator.util.EventLog;
 
 public class KuechenfeeParser extends AbstractParser{
 
-	public KuechenfeeParser(EventLog log, Rezeptdaten rezeptdaten) {
+	public KuechenfeeParser(EventLog log, RecipeData rezeptdaten) {
 		super(log, rezeptdaten, false);
 	}
 
@@ -16,7 +16,7 @@ public class KuechenfeeParser extends AbstractParser{
 	public void parseDocument() {
 		// Get Titel
 		Element entireTitle = doc.getElementsByClass("post-title").first();
-		rezeptdaten.setRezeptTitle(entireTitle.text());
+		rezeptdaten.setRecipeTitle(entireTitle.text());
 
 		// Get Zutaten
 		Element entireIngredients = doc.getElementsByClass("pane").first();

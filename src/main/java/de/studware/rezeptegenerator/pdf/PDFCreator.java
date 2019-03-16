@@ -15,8 +15,8 @@ import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import de.studware.rezeptegenerator.Rezeptdaten;
-import de.studware.rezeptegenerator.config.RezepteConfig;
+import de.studware.rezeptegenerator.config.ConfigHandler;
+import de.studware.rezeptegenerator.data.RecipeData;
 import de.studware.rezeptegenerator.util.EventLog;
 
 public class PDFCreator {
@@ -24,7 +24,7 @@ public class PDFCreator {
 	private static final String SOFTWARE_INFO = "JAVA RezepteCooker";
 	private static final String SYMBOL_BULLET = "\u2022";
 	private EventLog log = null;
-	private Rezeptdaten rezeptdaten = null;
+	private RecipeData rezeptdaten = null;
 	private FileFolder util = null;
 
 
@@ -33,7 +33,7 @@ public class PDFCreator {
 	private static final Font DOCFONT_NORMAL = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
 	private static final Font DOCFONT_SMALL = new Font(Font.FontFamily.HELVETICA, 8, Font.ITALIC);
 	
-	public PDFCreator(EventLog log, Rezeptdaten rezeptdaten, RezepteConfig config) {
+	public PDFCreator(EventLog log, RecipeData rezeptdaten, ConfigHandler config) {
 		this.log = log;
 		this.rezeptdaten = rezeptdaten;
 		util = new FileFolder(log, config);
@@ -65,7 +65,7 @@ public class PDFCreator {
 	private String createFileName() {
 		log.addEvent(this, "Create a new filename");
 		boolean check = true;
-		String name = rezeptdaten.getRezeptTitle().replace("/", "").replace("\\", "");
+		String name = rezeptdaten.getRecipeTitle().replace("/", "").replace("\\", "");
 		name = name.replaceAll("\\s+", " ");
 		String temp = name + ".pdf";
 		check = new File(util.getFolder(), temp).exists();
@@ -83,7 +83,7 @@ public class PDFCreator {
 	
 	private void addMetaInfos(Document document) {
 		log.addEvent(this, "MetaInfos will be added");
-		document.addTitle(rezeptdaten.getRezeptTitle());
+		document.addTitle(rezeptdaten.getRecipeTitle());
 		document.addSubject(rezeptdaten.getUrlpath());
 		document.addAuthor(SOFTWARE_INFO);
 		document.addCreator(SOFTWARE_INFO);
@@ -91,7 +91,7 @@ public class PDFCreator {
 
 	private void addContent(Document document) throws DocumentException {
 		log.addEvent(this, "Content will be added");
-		document.add(new Paragraph(rezeptdaten.getRezeptTitle(), DOCFONT_HEADING));
+		document.add(new Paragraph(rezeptdaten.getRecipeTitle(), DOCFONT_HEADING));
 		document.add(new Paragraph(rezeptdaten.getUrlpath(), DOCFONT_SMALL));
 		document.add(addEmptyLine(1));
 		

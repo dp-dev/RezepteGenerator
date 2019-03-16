@@ -1,6 +1,6 @@
 package de.studware.rezeptegenerator.parser;
 
-import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.data.RecipeData;
 import de.studware.rezeptegenerator.util.EventLog;
 
 import java.io.IOException;
@@ -13,10 +13,10 @@ import org.jsoup.nodes.Document;
 public abstract class AbstractParser {
 	private static final Logger logger = Logger.getLogger(AbstractParser.class.getName());
 	protected EventLog log = null;
-	protected Rezeptdaten rezeptdaten = null;
+	protected RecipeData rezeptdaten = null;
 	protected Document doc = null;
 	
-	public AbstractParser(EventLog log, Rezeptdaten rezeptdaten, boolean validate) {
+	public AbstractParser(EventLog log, RecipeData rezeptdaten, boolean validate) {
 		this.log = log;
 		this.rezeptdaten = rezeptdaten;
 		if (getOnlineContent(validate)) {

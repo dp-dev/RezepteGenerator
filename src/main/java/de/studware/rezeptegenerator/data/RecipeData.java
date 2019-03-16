@@ -1,18 +1,18 @@
-package de.studware.rezeptegenerator;
+package de.studware.rezeptegenerator.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rezeptdaten {
+public class RecipeData {
 	private final String urlpath;
-	private String rezeptTitle;
+	private String recipeTitle;
 	private ArrayList<String> ingredientsList = new ArrayList<>();
 	private ArrayList<String> instructionSteps = new ArrayList<>();
 	private ArrayList<String> helpingTools = new ArrayList<>();
 	private ArrayList<String> cookTimes = new ArrayList<>();
 	private ArrayList<String> additionalInfos = new ArrayList<>();
 	
-	public Rezeptdaten(String urlpath) {
+	public RecipeData(String urlpath) {
 		this.urlpath = urlpath;
 	}
 	
@@ -20,12 +20,12 @@ public class Rezeptdaten {
 		return urlpath;
 	}
 	
-	public String getRezeptTitle() {
-		return rezeptTitle;
+	public String getRecipeTitle() {
+		return recipeTitle;
 	}
 	
-	public void setRezeptTitle(String rezeptTitle) {
-		this.rezeptTitle = rezeptTitle;
+	public void setRecipeTitle(String rezeptTitle) {
+		this.recipeTitle = rezeptTitle;
 	}
 	
 	public List<String> getIngredientsList() {

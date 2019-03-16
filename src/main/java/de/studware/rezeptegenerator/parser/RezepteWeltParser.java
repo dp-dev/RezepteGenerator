@@ -3,12 +3,12 @@ package de.studware.rezeptegenerator.parser;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.data.RecipeData;
 import de.studware.rezeptegenerator.util.EventLog;
 
 public class RezepteWeltParser extends AbstractParser {
 	
-	public RezepteWeltParser(EventLog log, Rezeptdaten rezeptdaten) {
+	public RezepteWeltParser(EventLog log, RecipeData rezeptdaten) {
 		super(log, rezeptdaten, false);
 	}
 	
@@ -75,7 +75,7 @@ public class RezepteWeltParser extends AbstractParser {
 	public void parseDocument() {
 		// Get Titel
 		Element entireTitle = doc.getElementsByClass("recipe-title-heading").first();
-		rezeptdaten.setRezeptTitle(entireTitle.getElementsByTag("a").first().text());
+		rezeptdaten.setRecipeTitle(entireTitle.getElementsByTag("a").first().text());
 		
 		// Get Zutaten
 		Element entireIngredients = doc.getElementsByClass("ingredients").first();

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.data.RecipeData;
 
 public class EventLogTest {
 	private EventLog eventlog;
@@ -22,9 +22,9 @@ public class EventLogTest {
 
 	@Test
 	public void testAddEvent() {
-		Rezeptdaten daten = new Rezeptdaten("testurl");
+		RecipeData daten = new RecipeData("testurl");
 		eventlog.addEvent(daten, "Testing");
-		assertEquals("Number of Events does not match 1", eventlog.getAllEvents().size(), 1);
+		assertEquals("Number of Events does not match 1", 1, eventlog.getAllEvents().size());
 	}
 
 }

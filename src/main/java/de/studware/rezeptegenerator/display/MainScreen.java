@@ -21,31 +21,33 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import de.studware.rezeptegenerator.GeneratorController;
+
 public class MainScreen {
-	private static final Logger logger = Logger.getLogger(MainScreen.class.getName());
+	private static final Logger LOG = Logger.getLogger(MainScreen.class.getName());
+	private final JFrame frame = new JFrame("Rezepte Generator");
 	private JTextArea taInfo;
-	private JFrame frame = new JFrame("Rezepte Generator");
-	
-	public MainScreen(ScreenEvents screenEvents) {
+
+	public MainScreen(GeneratorController screenEvents) {
 		screenEvents.addEventToLog(this, "Displaying screen");
 		initScreen(screenEvents);
 	}
-	
+
 	public void showEvents(List<String> events) {
 		for (String event : events) {
 			taInfo.append(event + System.lineSeparator());
 		}
 	}
-	
+
 	public void resetTextArea() {
 		taInfo.setText("");
 	}
-	
+
 	public JFrame getFrame() {
-		return frame;		
+		return frame;
 	}
-	
-	private void initScreen(ScreenEvents screenEvents) {
+
+	private void initScreen(GeneratorController screenEvents) {
 		frame.setSize(640, 480);
 		frame.setMinimumSize(new Dimension(550, 300));
 		frame.setLocationRelativeTo(null);
@@ -53,76 +55,80 @@ public class MainScreen {
 		frame.setLayout(new BorderLayout(5, 5));
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-			logger.log(Level.SEVERE, "UIManager failed by setup of look and feel of operating system ", e);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e) {
+			LOG.log(Level.SEVERE, "UIManager failed by setup of look and feel of operating system ", e);
 		}
-		
+
 		// Menu
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		
+
 		// First Menu
 		JMenu mFile = new JMenu("Datei");
 		mFile.setMnemonic(KeyEvent.VK_D);
 		menuBar.add(mFile);
-		
+
 		JMenuItem miResetAll = new JMenuItem("Alles zurücksetzen");
 		miResetAll.addActionListener(screenEvents);
 		miResetAll.setActionCommand("RESET_ALL");
 		mFile.add(miResetAll);
-		
+
 		mFile.addSeparator();
-		
+
 		JMenuItem miExit = new JMenuItem("Beenden");
 		miExit.addActionListener(screenEvents);
 		miExit.setMnemonic(KeyEvent.VK_B);
 		miExit.setActionCommand("CLOSE");
 		mFile.add(miExit);
-		
+
 		// Second Menu
 		JMenu mHelp = new JMenu("Hilfe");
 		mHelp.setMnemonic(KeyEvent.VK_H);
 		menuBar.add(mHelp);
-		
+
 		JMenuItem miReportError = new JMenuItem("Fehler melden");
 		miReportError.addActionListener(screenEvents);
 		miReportError.setActionCommand("REPORT_ERROR");
 		mHelp.add(miReportError);
-		
+
 		// Top
 		JPanel pTop = new JPanel();
 		pTop.setLayout(new BorderLayout(5, 5));
 		pTop.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
 		frame.add(pTop, BorderLayout.NORTH);
-		
-		JLabel lbInfo = new JLabel("Link in die Zwischenablage kopieren. Danach Button anklicken, um das PDF Dokument zu erzeugen.", SwingConstants.CENTER);
+
+		JLabel lbInfo = new JLabel(
+				"Link in die Zwischenablage kopieren. Danach Button anklicken, um das PDF Dokument zu erzeugen.",
+				SwingConstants.CENTER);
 		pTop.add(lbInfo, BorderLayout.CENTER);
-		
+
 		// Center
 		JPanel pCenter = new JPanel();
 		pCenter.setLayout(new BorderLayout(5, 5));
 		pCenter.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
 		frame.add(pCenter, BorderLayout.CENTER);
-		
+
 		taInfo = new JTextArea();
 		taInfo.setEditable(false);
-		JScrollPane scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setViewportView(taInfo);
 		pCenter.add(scroll, BorderLayout.CENTER);
-		
+
 		// Bottom
 		JPanel pBottom = new JPanel();
 		pBottom.setLayout(new BorderLayout(5, 5));
 		pBottom.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 		frame.add(pBottom, BorderLayout.SOUTH);
-		
+
 		JButton btPdf = new JButton("PDF Datei erstellen");
 		btPdf.addActionListener(screenEvents);
 		btPdf.setActionCommand("CREATE_PDF");
 		pBottom.add(btPdf, BorderLayout.CENTER);
-		
+
 		frame.setVisible(true);
 		btPdf.requestFocus();
 	}
-	
+
 }

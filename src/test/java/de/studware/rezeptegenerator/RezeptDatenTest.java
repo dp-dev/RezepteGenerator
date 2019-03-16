@@ -7,13 +7,15 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.studware.rezeptegenerator.data.RecipeData;
+
 public class RezeptDatenTest {
-	private Rezeptdaten rezeptdaten;
+	private RecipeData rezeptdaten;
 	private static final String URL = "testurl";
 
 	@Before
 	public void initRezeptdaten() {
-		rezeptdaten = new Rezeptdaten(URL);
+		rezeptdaten = new RecipeData(URL);
 	}
 
 	@Test
@@ -24,8 +26,8 @@ public class RezeptDatenTest {
 	@Test
 	public void testCheckRezeptTitle() {
 		final String TITLE = "RezTitle";
-		rezeptdaten.setRezeptTitle(TITLE);
-		assertEquals(TITLE, rezeptdaten.getRezeptTitle());
+		rezeptdaten.setRecipeTitle(TITLE);
+		assertEquals(TITLE, rezeptdaten.getRecipeTitle());
 	}
 
 	@Test

@@ -6,12 +6,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import de.studware.rezeptegenerator.Rezeptdaten;
+import de.studware.rezeptegenerator.data.RecipeData;
 import de.studware.rezeptegenerator.util.EventLog;
 
 public class FoodWithLoveParser extends AbstractParser {
 	
-	public FoodWithLoveParser(EventLog log, Rezeptdaten rezeptdaten) {
+	public FoodWithLoveParser(EventLog log, RecipeData rezeptdaten) {
 		super(log, rezeptdaten, true);
 	}
 	
@@ -19,7 +19,7 @@ public class FoodWithLoveParser extends AbstractParser {
 	public void parseDocument() {
 		// Get Titel
 		Element entireTitle = doc.getElementsByClass("entry-title").first();
-		rezeptdaten.setRezeptTitle(removeHearts(entireTitle.text()));
+		rezeptdaten.setRecipeTitle(removeHearts(entireTitle.text()));
 		
 		// Get Zutaten und Zubereitung
 		Element entireIngredients = doc.getElementsByClass("pf-content").first();

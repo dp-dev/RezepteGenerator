@@ -1,7 +1,7 @@
 package de.studware.rezeptegenerator.util;
 
-import de.studware.rezeptegenerator.Rezeptdaten;
-import de.studware.rezeptegenerator.config.RezepteConfig;
+import de.studware.rezeptegenerator.config.ConfigHandler;
+import de.studware.rezeptegenerator.data.RecipeData;
 import de.studware.rezeptegenerator.parser.AbstractParser;
 import de.studware.rezeptegenerator.parser.FoodWithLoveParser;
 import de.studware.rezeptegenerator.parser.KuechenfeeParser;
@@ -10,10 +10,10 @@ import de.studware.rezeptegenerator.pdf.PDFCreator;
 
 public class ParserHandler implements Runnable {
 	private EventLog log;
-	private Rezeptdaten rezeptdaten;
-	private RezepteConfig config;
+	private RecipeData rezeptdaten;
+	private ConfigHandler config;
 	
-	public ParserHandler(EventLog log, RezepteConfig config) {
+	public ParserHandler(EventLog log, ConfigHandler config) {
 		this.log = log;
 		this.config = config;
 	}
@@ -25,7 +25,7 @@ public class ParserHandler implements Runnable {
 		String urlpath = ClipboardUrlGetter.getURL(log);
 		
 		checkIfNullAndExit(urlpath);
-		rezeptdaten = new Rezeptdaten(urlpath);
+		rezeptdaten = new RecipeData(urlpath);
 		parser = chooseParser();
 		if (parser != null) {
 			checkIfNullAndExit(parser.toString());

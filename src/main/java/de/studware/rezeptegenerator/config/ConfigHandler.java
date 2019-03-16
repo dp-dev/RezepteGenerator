@@ -6,17 +6,18 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class RezepteConfig {
-	private static final Logger logger = Logger.getLogger(RezepteConfig.class.getName());
+public class ConfigHandler {
+	private static final Logger LOG = Logger.getLogger(ConfigHandler.class.getName());
 	private Properties properties = null;
 	
-	public RezepteConfig() {
-		String configPath = this.getClass().getClassLoader().getResource("rezeptegenerator.properties").getPath();
+	public ConfigHandler() {
+		String configPath = this.getClass().getClassLoader().getResource("generator.properties").getPath();
 		properties = new Properties();
 		try {
 			properties.load(new FileInputStream(configPath));
+			LOG.log(Level.INFO, "Properties file loaded successfully");
 		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Propertiesfile could not be loaded", e);
+			LOG.log(Level.SEVERE, "Properties file could not be loaded", e);
 		}
 	}
 	

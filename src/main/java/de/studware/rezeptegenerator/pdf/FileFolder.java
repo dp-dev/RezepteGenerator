@@ -2,8 +2,8 @@ package de.studware.rezeptegenerator.pdf;
 
 import java.io.File;
 
-import de.studware.rezeptegenerator.Rezeptdaten;
-import de.studware.rezeptegenerator.config.RezepteConfig;
+import de.studware.rezeptegenerator.config.ConfigHandler;
+import de.studware.rezeptegenerator.data.RecipeData;
 import de.studware.rezeptegenerator.util.EventLog;
 
 public class FileFolder {
@@ -11,7 +11,7 @@ public class FileFolder {
 	private File folder;
 	
 	
-	public FileFolder(EventLog log, RezepteConfig config) {
+	public FileFolder(EventLog log, ConfigHandler config) {
 		this.log = log;
 		this.folder = new File(config.getProperty("folder.name"));
 	}
@@ -25,10 +25,10 @@ public class FileFolder {
 		}
 	}
 	
-	public String createFileName(Rezeptdaten rezeptdaten) {
+	public String createFileName(RecipeData rezeptdaten) {
 		log.addEvent(this, "Create a new filename");
 		boolean check = true;
-		String name = rezeptdaten.getRezeptTitle().replace("/", "").replace("\\", "");
+		String name = rezeptdaten.getRecipeTitle().replace("/", "").replace("\\", "");
 		name = name.replaceAll("\\s+", " ");
 		String temp = name + ".pdf";
 		check = new File(folder, temp).exists();
