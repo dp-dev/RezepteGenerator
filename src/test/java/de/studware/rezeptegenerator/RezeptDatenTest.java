@@ -9,64 +9,63 @@ import org.junit.Test;
 
 public class RezeptDatenTest {
 	private Rezeptdaten rezeptdaten;
-	
+
 	@Before
 	public void initRezeptdaten() {
 		rezeptdaten = new Rezeptdaten("testUrl");
 	}
-	
+
 	@Test
-	public void test1_checkUrl() {
-		assertTrue(rezeptdaten.getUrlpath().equals("testUrl"));
+	public void testCheckUrl() {
+		assertEquals(rezeptdaten.getUrlpath(), "testUrl");
 	}
-	
+
 	@Test
-	public void test2_checkRezeptTitle() {
+	public void testCheckRezeptTitle() {
 		rezeptdaten.setRezeptTitle("RezTitle");
-		assertTrue(rezeptdaten.getRezeptTitle().equals("RezTitle"));
+		assertEquals(rezeptdaten.getRezeptTitle(), "RezTitle");
 	}
-	
+
 	@Test
-	public void test3_checkIngredientsList() {
+	public void testCheckIngredientsList() {
 		rezeptdaten.addIngredientsToList("Sugar");
 		List<String> list = rezeptdaten.getIngredientsList();
-		assertTrue(list.size() == 1);
-		assertTrue(list.get(0).equals("Sugar"));
+		assertEquals(list.size(), 1);
+		assertEquals(list.get(0), "Sugar");
 	}
-	
+
 	@Test
-	public void test4_checkInstructionSteps() {
+	public void testCheckInstructionSteps() {
 		rezeptdaten.addInstructionStep("Mix first");
 		rezeptdaten.addInstructionStep("Heat now");
 		List<String> list = rezeptdaten.getInstructionSteps();
-		assertTrue(list.size() == 2);
-		assertTrue(list.get(0).equals("Mix first"));
+		assertEquals(list.size(), 2);
+		assertEquals(list.get(0), "Mix first");
+		assertEquals(list.get(1), "Heat now");
 	}
-	
+
 	@Test
-	public void test5_checkHelpingTools() {
+	public void testCheckHelpingTools() {
 		rezeptdaten.addHelpingTool("Fork");
 		List<String> list = rezeptdaten.getHelpingTools();
-		assertTrue(list.size() == 1);
-		assertTrue(list.get(0).equals("Fork"));
+		assertEquals(list.size(), 1);
+		assertEquals(list.get(0), "Fork");
 	}
-	
+
 	@Test
-	public void test6_checkCookTime() {
+	public void testCheckCookTime() {
 		rezeptdaten.addCookTime("9 min");
 		List<String> list = rezeptdaten.getCookTimes();
-		assertTrue(list.size() == 1);
-		assertTrue(list.get(0).equals("9 min"));
+		assertEquals(list.size(), 1);
+		assertEquals(list.get(0), "9 min");
 	}
-	
+
 	@Test
-	public void test7_checkAdditionalInfos() {
+	public void testCheckAdditionalInfos() {
 		rezeptdaten.addAdditionalInfo("None");
 		List<String> list = rezeptdaten.getAdditionalInfos();
-		assertTrue(list.size() == 1);
-		assertTrue(list.get(0).equals("None"));
+		assertEquals(list.size(), 1);
+		assertEquals(list.get(0), "None");
 	}
-	
 
-	
 }

@@ -6,16 +6,15 @@ import de.studware.rezeptegenerator.util.EventLog;
 
 public class GeneratorApplication {
 
-	
 	public static void main(String[] args) {
 		new GeneratorApplication();
 	}
-	
+
 	public GeneratorApplication() {
 		EventLog log = new EventLog();
 		log.addEvent(this, "Generator started");
 		RezepteConfig config = new RezepteConfig();
 		new ScreenEvents(log, config);
 	}
-	
+
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rezeptdaten {
-	private String urlpath;
+	private final String urlpath;
 	private String rezeptTitle;
 	private ArrayList<String> ingredientsList = new ArrayList<>();
 	private ArrayList<String> instructionSteps = new ArrayList<>();
