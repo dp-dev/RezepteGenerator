@@ -1,32 +1,31 @@
 package de.studware.rezeptegenerator.pdf;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import de.studware.rezeptegenerator.config.ConfigHandler;
 import de.studware.rezeptegenerator.data.RecipeData;
-import de.studware.rezeptegenerator.util.EventLog;
 
 public class FileFolder {
-	private EventLog log;
-	private File folder;
-	
-	
-	public FileFolder(EventLog log, ConfigHandler config) {
-		this.log = log;
+	private static final Logger LOG = Logger.getLogger(FileFolder.class.getSimpleName());
+	private final File folder;
+
+	public FileFolder(ConfigHandler config) {
 		this.folder = new File(config.getProperty("folder.name"));
 	}
 
 	public void createFolder() {
 		if (!folder.exists()) {
 			folder.mkdir();
-			log.addEvent(this, "Created new folder for all the recipe");
+			LOG.info("Created new folder for all the recipe");
 		} else {
-			log.addEvent(this, "Folder already exists");
+			LOG.info("Folder already exists");
 		}
 	}
-	
+
 	public String createFileName(RecipeData rezeptdaten) {
-		log.addEvent(this, "Create a new filename");
+		LOG.info("Create a new filename");
 		boolean check = true;
 		String name = rezeptdaten.getRecipeTitle().replace("/", "").replace("\\", "");
 		name = name.replaceAll("\\s+", " ");
@@ -38,18 +37,18 @@ public class FileFolder {
 				no++;
 				temp = name + no + ".pdf";
 				check = new File(folder, temp).exists();
-				log.addEvent(this, "File exists - try new filename: " + temp);
+				LOG.log(Level.FINE, "File exists - try new filename: {0}", temp);
 			} while (check);
 		}
 		return temp;
 	}
-	
+
 	public String getFolderPath() {
 		return folder.getAbsolutePath() + "\\";
 	}
-	
+
 	public File getFolder() {
 		return folder;
 	}
-	
+
 }

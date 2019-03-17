@@ -3,7 +3,6 @@ package de.studware.rezeptegenerator.config;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ConfigHandler {
@@ -15,9 +14,9 @@ public class ConfigHandler {
 		properties = new Properties();
 		try {
 			properties.load(new FileInputStream(configPath));
-			LOG.log(Level.INFO, "Properties file loaded successfully");
+			LOG.info("Properties file loaded successfully");
 		} catch (IOException e) {
-			LOG.log(Level.SEVERE, "Properties file could not be loaded", e);
+			LOG.severe("Properties file could not be loaded. Exception: " + e);
 		}
 	}
 	

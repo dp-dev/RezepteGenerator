@@ -7,12 +7,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import de.studware.rezeptegenerator.data.RecipeData;
-import de.studware.rezeptegenerator.util.EventLog;
 
 public class FoodWithLoveParser extends AbstractParser {
 	
-	public FoodWithLoveParser(EventLog log, RecipeData rezeptdaten) {
-		super(log, rezeptdaten, true);
+	public FoodWithLoveParser(RecipeData rezeptdaten) {
+		super(rezeptdaten);
 	}
 	
 	@Override

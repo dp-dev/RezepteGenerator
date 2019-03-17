@@ -6,26 +6,24 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ClipboardUrlGetter {
-	
-	private ClipboardUrlGetter() {
+public class ClipboardGetter {
+	private static final Logger LOG = Logger.getLogger(Clipboard.class.getSimpleName());
+
+	private ClipboardGetter() {
 		throw new IllegalStateException("This is a utility class only");
 	}
-	
-	public static String getURL(EventLog log) {
-		final Logger logger = Logger.getLogger(ClipboardUrlGetter.class.getName());
+
+	public static String getURL() {
+		LOG.info("Get content from clipboard");
 		try {
-			log.addEvent(log, "Get content from clipboard");
 			Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 			return clipboard.getData(DataFlavor.stringFlavor).toString();
 		} catch (HeadlessException | UnsupportedFlavorException | IOException e) {
-			log.addEvent(log, "Exception occured: " + e.getMessage());
-			logger.log(Level.SEVERE, "Exception occured while getting content from the clipboard", e);
+			LOG.severe("Error while getting content from the clipboard. Exception: " + e);
 			return null;
 		}
 	}
-	
+
 }

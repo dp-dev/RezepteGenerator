@@ -3,20 +3,18 @@ package de.studware.rezeptegenerator.display;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JProgressBar;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -25,31 +23,45 @@ import de.studware.rezeptegenerator.GeneratorController;
 
 public class MainScreen {
 	private static final Logger LOG = Logger.getLogger(MainScreen.class.getName());
-	private final JFrame frame = new JFrame("Rezepte Generator");
-	private JTextArea taInfo;
+	private static final String INSTRUCTIONS = "Kopiere den Link in die Zwischenablage und drücke danach im Menü auf den Punkt: PDF Datei erstellen.";
+	private final JFrame frame;
+	private JMenuItem miCreatePDF;
+	private JMenuItem miExit;
+	private JMenuItem miReportError;
+	private JProgressBar progressBar;
 
-	public MainScreen(GeneratorController screenEvents) {
-		screenEvents.addEventToLog(this, "Displaying screen");
-		initScreen(screenEvents);
-	}
-
-	public void showEvents(List<String> events) {
-		for (String event : events) {
-			taInfo.append(event + System.lineSeparator());
-		}
-	}
-
-	public void resetTextArea() {
-		taInfo.setText("");
+	public MainScreen(String title) {
+		frame = new JFrame(title);
+		LOG.info("Displaying screen");
+		initFrame();
+		initMenuBar();
+		initPanels();
+		frame.setVisible(true);
 	}
 
 	public JFrame getFrame() {
 		return frame;
 	}
 
-	private void initScreen(GeneratorController screenEvents) {
-		frame.setSize(640, 480);
-		frame.setMinimumSize(new Dimension(550, 300));
+	public void setProgressStatusTo(int value) {
+		progressBar.setValue(value);
+	}
+
+	public void setActionListener(GeneratorController controller) {
+		miExit.addActionListener(controller);
+		miExit.setActionCommand("CLOSE");
+
+		miReportError.addActionListener(controller);
+		miReportError.setActionCommand("REPORT_ERROR");
+
+		miCreatePDF.addActionListener(controller);
+		miCreatePDF.setActionCommand("CREATE_PDF");
+	}
+
+	private void initFrame() {
+		frame.setSize(640, 140);
+		frame.setMinimumSize(new Dimension(600, 120));
+		frame.setMaximumSize(new Dimension(660, 160));
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout(5, 5));
@@ -60,61 +72,44 @@ public class MainScreen {
 			LOG.log(Level.SEVERE, "UIManager failed by setup of look and feel of operating system ", e);
 		}
 
-		// Menu
+	}
+
+	private void initMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 
-		// First Menu
+		// First menu item
 		JMenu mFile = new JMenu("Datei");
 		mFile.setMnemonic(KeyEvent.VK_D);
 		menuBar.add(mFile);
 
-		JMenuItem miResetAll = new JMenuItem("Alles zurücksetzen");
-		miResetAll.addActionListener(screenEvents);
-		miResetAll.setActionCommand("RESET_ALL");
-		mFile.add(miResetAll);
+		miCreatePDF = new JMenuItem("PDF Datei erstellen");
+		miCreatePDF.setMnemonic(KeyEvent.VK_P);
+		mFile.add(miCreatePDF);
 
-		mFile.addSeparator();
-
-		JMenuItem miExit = new JMenuItem("Beenden");
-		miExit.addActionListener(screenEvents);
+		miExit = new JMenuItem("Beenden");
 		miExit.setMnemonic(KeyEvent.VK_B);
-		miExit.setActionCommand("CLOSE");
 		mFile.add(miExit);
 
-		// Second Menu
+		// Second menu item
 		JMenu mHelp = new JMenu("Hilfe");
 		mHelp.setMnemonic(KeyEvent.VK_H);
 		menuBar.add(mHelp);
 
-		JMenuItem miReportError = new JMenuItem("Fehler melden");
-		miReportError.addActionListener(screenEvents);
-		miReportError.setActionCommand("REPORT_ERROR");
+		miReportError = new JMenuItem("Fehler melden");
+		miReportError.setMnemonic(KeyEvent.VK_F);
 		mHelp.add(miReportError);
+	}
 
+	private void initPanels() {
 		// Top
 		JPanel pTop = new JPanel();
 		pTop.setLayout(new BorderLayout(5, 5));
 		pTop.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
-		frame.add(pTop, BorderLayout.NORTH);
+		frame.add(pTop, BorderLayout.CENTER);
 
-		JLabel lbInfo = new JLabel(
-				"Link in die Zwischenablage kopieren. Danach Button anklicken, um das PDF Dokument zu erzeugen.",
-				SwingConstants.CENTER);
-		pTop.add(lbInfo, BorderLayout.CENTER);
-
-		// Center
-		JPanel pCenter = new JPanel();
-		pCenter.setLayout(new BorderLayout(5, 5));
-		pCenter.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-		frame.add(pCenter, BorderLayout.CENTER);
-
-		taInfo = new JTextArea();
-		taInfo.setEditable(false);
-		JScrollPane scroll = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroll.setViewportView(taInfo);
-		pCenter.add(scroll, BorderLayout.CENTER);
+		JLabel lbInfo = new JLabel(INSTRUCTIONS, SwingConstants.CENTER);
+		pTop.add(lbInfo, BorderLayout.NORTH);
 
 		// Bottom
 		JPanel pBottom = new JPanel();
@@ -122,13 +117,15 @@ public class MainScreen {
 		pBottom.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
 		frame.add(pBottom, BorderLayout.SOUTH);
 
-		JButton btPdf = new JButton("PDF Datei erstellen");
-		btPdf.addActionListener(screenEvents);
-		btPdf.setActionCommand("CREATE_PDF");
-		pBottom.add(btPdf, BorderLayout.CENTER);
+		progressBar = new JProgressBar(JProgressBar.HORIZONTAL, 0, 100);
+		progressBar.setValue(0);
+		progressBar.setStringPainted(true);
+		pBottom.add(progressBar, BorderLayout.CENTER);
 
-		frame.setVisible(true);
-		btPdf.requestFocus();
+	}
+
+	public void showErrorMessage(String title, String message) {
+		JOptionPane.showMessageDialog(frame, message, title, JOptionPane.ERROR_MESSAGE);
 	}
 
 }

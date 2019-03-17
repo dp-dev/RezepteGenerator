@@ -4,20 +4,20 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import de.studware.rezeptegenerator.data.RecipeData;
-import de.studware.rezeptegenerator.util.EventLog;
 
-public class RezepteWeltParser extends AbstractParser {
-	
-	public RezepteWeltParser(EventLog log, RecipeData rezeptdaten) {
-		super(log, rezeptdaten, false);
+public class RezeptWeltParser extends AbstractParser {
+
+	public RezeptWeltParser(RecipeData rezeptdaten) {
+		super(rezeptdaten);
 	}
-	
+
 	private void checkStepsforImages(Elements steps) {
 		for (Element element : steps) {
 			Elements images = element.select("img");
 			Element neu = null;
 			for (Element elementWithImage : images) {
-				String newElement = element.toString().replace(elementWithImage.toString(), getImageName(elementWithImage));
+				String newElement = element.toString().replace(elementWithImage.toString(),
+						getImageName(elementWithImage));
 				neu = element.html(newElement);
 			}
 			String ausgabe = "";
@@ -39,12 +39,13 @@ public class RezepteWeltParser extends AbstractParser {
 			}
 		}
 	}
-	
+
 	private String getImageName(Element element) {
 		Element entireElement = element.getElementsByAttribute("title").first();
-		String title = entireElement.attr("title");
-		if (!title.contains("emoticons")) {
-			switch (title) {
+		if (entireElement != null) {
+			String title = entireElement.attr("title");
+			if (!title.contains("emoticons")) {
+				switch (title) {
 				case "Mixtopf geschlossen":
 				case "Closed lid":
 					title = " Mixtopf";
@@ -64,26 +65,29 @@ public class RezepteWeltParser extends AbstractParser {
 				default:
 					title = " 'SYMBOL NAME NOT FOUND >> '" + title + "'";
 					break;
+				}
+			} else {
+				title = " ";
 			}
+			return title;
 		} else {
-			title = " ";
+			return "";
 		}
-		return title;
 	}
-	
+
 	@Override
 	public void parseDocument() {
 		// Get Titel
 		Element entireTitle = doc.getElementsByClass("recipe-title-heading").first();
 		rezeptdaten.setRecipeTitle(entireTitle.getElementsByTag("a").first().text());
-		
+
 		// Get Zutaten
 		Element entireIngredients = doc.getElementsByClass("ingredients").first();
 		Elements ingredients = entireIngredients.getElementsByTag("li");
 		for (Element ingredient : ingredients) {
 			rezeptdaten.addIngredientsToList(ingredient.text());
 		}
-		
+
 		// Get Zubereitung
 		Element entireSteps = doc.getElementsByClass("steps").first();
 		Elements steps = entireSteps.getElementsByTag("p");
@@ -91,7 +95,7 @@ public class RezepteWeltParser extends AbstractParser {
 			steps = entireSteps.getElementsByTag("li");
 		}
 		checkStepsforImages(steps);
-		
+
 		// Get Hilfsmittel
 		Element helpSection = doc.getElementsByClass("accessories-list").first();
 		if (helpSection != null) {
@@ -100,7 +104,7 @@ public class RezepteWeltParser extends AbstractParser {
 				rezeptdaten.addHelpingTool(element.text());
 			}
 		}
-		
+
 		// Get Sonstige Infos TM5/TM31 oder Zeiten
 		Element additionalSection = doc.getElementsByClass("additional-info").first();
 		Elements additionalInfos = additionalSection.getElementsByClass("media-body");

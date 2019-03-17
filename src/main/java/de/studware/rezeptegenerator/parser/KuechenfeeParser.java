@@ -4,12 +4,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import de.studware.rezeptegenerator.data.RecipeData;
-import de.studware.rezeptegenerator.util.EventLog;
 
 public class KuechenfeeParser extends AbstractParser{
 
-	public KuechenfeeParser(EventLog log, RecipeData rezeptdaten) {
-		super(log, rezeptdaten, false);
+	public KuechenfeeParser(RecipeData rezeptdaten) {
+		super(rezeptdaten);
 	}
 
 	@Override
