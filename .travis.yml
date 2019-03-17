@@ -5,8 +5,6 @@ jdk:
   - openjdk8
 sudo: false
 install: true
-services:
-  - xvfb
 addons:
   sonarcloud:
     organization: dp-dev-github
