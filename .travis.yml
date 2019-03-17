@@ -13,6 +13,6 @@ addons:
     token:
       secure: $SONAR_TOKEN
 before_script:
-  - "export DISPLAY=:99.0"
+  - "unset DISPLAY=:0"
 script:
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
