@@ -54,9 +54,9 @@ public class GeneratorController implements ActionListener {
 			break;
 		}
 	}
-	
+
 	public MainScreen getMainscreen() {
 		return mainscreen;
-	}	
+	}
 
 }

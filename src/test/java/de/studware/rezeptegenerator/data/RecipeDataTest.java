@@ -1,4 +1,4 @@
-package de.studware.rezeptegenerator;
+package de.studware.rezeptegenerator.data;
 
 import static org.junit.Assert.*;
 
@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import de.studware.rezeptegenerator.data.RecipeData;
 
-public class RezeptDatenTest {
+public class RecipeDataTest {
 	private RecipeData rezeptdaten;
 	private static final String URL = "testurl";
 

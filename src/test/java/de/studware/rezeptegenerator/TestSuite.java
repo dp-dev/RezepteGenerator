@@ -4,9 +4,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import de.studware.rezeptegenerator.data.RecipeDataTest;
 import de.studware.rezeptegenerator.util.ConfigHandlerTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({ ConfigHandlerTest.class, RezeptDatenTest.class, })
+@SuiteClasses({ GeneratorControllerTest.class, ConfigHandlerTest.class, RecipeDataTest.class, })
 public class TestSuite {
 }
