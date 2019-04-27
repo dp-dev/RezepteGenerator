@@ -12,11 +12,13 @@ import de.studware.rezeptegenerator.display.MainScreenTest;
 import de.studware.rezeptegenerator.util.ClipboardGetterTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({ MainScreenTest.class, //
+@SuiteClasses({ //
+		MainScreenTest.class, //
 		ConfigHandlerTest.class, //
 		RecipeDataTest.class, //
 		ErrorMessageTest.class, //
 		QueueStatusTest.class, //
 		ClipboardGetterTest.class })
+
 public class TestSuite {
 }
