@@ -27,7 +27,7 @@ public class FileFolder {
 	public String createFileName(RecipeData rezeptdaten) {
 		LOG.info("Create a new filename");
 		boolean check = true;
-		String name = rezeptdaten.getRecipeTitle().replace("/", "").replace("\\", "");
+		String name = rezeptdaten.getRecipeTitle().replace("/", "").replace("\\", "").replace("|", "");
 		name = name.replaceAll("\\s+", " ");
 		String temp = name + ".pdf";
 		check = new File(folder, temp).exists();

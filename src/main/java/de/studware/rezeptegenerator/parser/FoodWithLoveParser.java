@@ -1,10 +1,12 @@
 package de.studware.rezeptegenerator.parser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.safety.Whitelist;
 
 import de.studware.rezeptegenerator.data.RecipeData;
 
@@ -16,34 +18,55 @@ public class FoodWithLoveParser extends AbstractParser {
 	
 	@Override
 	public void parseDocument() {
-		// Get Titel
+		// Get Title
 		Element entireTitle = doc.getElementsByClass("entry-title").first();
 		rezeptdaten.setRecipeTitle(removeHearts(entireTitle.text()));
 		
-		// Get Zutaten und Zubereitung
+		// Get ingredients & instuction steps
 		Element entireIngredients = doc.getElementsByClass("pf-content").first();
-		List<Element> liste = entireIngredients.getElementsByTag("p");
-		int currentIndex = 0;
-		for (int i = 0; i < liste.size(); i++) {
-			currentIndex++;
-			if(liste.get(i).text().contains("Ihr benötigt")) {
-				break;
+		List<Element> list = entireIngredients.getElementsByTag("p");
+		getIngredients(list);
+		getInstructions(list);
+
+	}
+
+	private void getInstructions(List<Element> liste) {
+		//Get instruction steps
+		boolean addToList = false;
+		for (Element element : liste) {
+			if(element.text().contains("So geht") || element.text().contains("Manu ")) {
+				addToList = !addToList;
+				continue;
 			}
-		}
-		extractIngredients(liste.get(currentIndex).toString());
-		currentIndex++;
-		for (int i = currentIndex; i < liste.size(); i++) {
-			String line = liste.get(i).text();
-			if(!line.isEmpty() && !line.startsWith(" ")) {
-				rezeptdaten.addInstructionStep(removeHTML(liste.get(i).text()));
+			if(addToList) {
+				String line = element.text();
+				if(!line.isEmpty() && !line.startsWith(" ")) {
+					rezeptdaten.addInstructionStep(removeHTML(line));
+				}
 			}
-		}
+		}		
+	}
+
+	private void getIngredients(List<Element> liste) {
+		boolean addToList = false;
+		for (Element element : liste) {
+			if(element.text().contains("So geht")) {
+				return;
+			}
+			if(element.text().contains("Ihr benötigt")) {
+				addToList = true;
+				continue;
+			}
+			if(addToList) {
+				extractIngredients(element.toString());
+			}
+		}		
 	}
 
 	private void extractIngredients(String text) {
 		String line = text.replaceFirst("<p>", "");
 		line = line.replace("</p>", "");
-		String[] ingredientList = line.split("<br> ");
+		String[] ingredientList = line.split("<br>");
 		for (String ingredient : ingredientList) {
 			rezeptdaten.addIngredientsToList(removeHTML(ingredient));
 		}
@@ -56,5 +79,14 @@ public class FoodWithLoveParser extends AbstractParser {
 	
 	private String removeHearts(String text) {
 		return text.replaceAll("\u2661", "");
+	}
+
+	@Override
+	public Whitelist getWhitelistForWebsite() {
+		Whitelist whitelist = Whitelist.relaxed();
+		whitelist.addAttributes("h1", "class");
+		whitelist.addAttributes("div", "class");
+		whitelist.removeTags("img");
+		return whitelist;
 	}
 }

@@ -59,7 +59,7 @@ public class ParserHandler implements Runnable {
 	}
 
 	private void checkIfNullAndExit(String text, ErrorMessage error) throws InterruptedException {
-		if (text == null) {
+		if (text == null || text.isEmpty()) {
 			LOG.severe("Problem encountered: null value!");
 			queue.put(new QueueStatus(-1, error.getMessage(), error.getTitle()));
 			throw new InterruptedException("Problem encountered: null value!");

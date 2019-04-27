@@ -46,6 +46,10 @@ public class MainScreen {
 	public void setProgressStatusTo(int value) {
 		progressBar.setValue(value);
 	}
+	
+	public int getProgressBarValue() {
+		return progressBar.getValue();
+	}
 
 	public void setActionListener(GeneratorController controller) {
 		miExit.addActionListener(controller);
