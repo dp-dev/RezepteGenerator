@@ -4,8 +4,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.logging.Logger;
 
 import de.studware.rezeptegenerator.config.ConfigHandler;
-import de.studware.rezeptegenerator.config.QueueStatus;
 import de.studware.rezeptegenerator.data.ErrorMessage;
+import de.studware.rezeptegenerator.data.QueueStatus;
 import de.studware.rezeptegenerator.data.RecipeData;
 import de.studware.rezeptegenerator.parser.AbstractParser;
 import de.studware.rezeptegenerator.parser.FoodWithLoveParser;

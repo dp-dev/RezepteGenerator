@@ -1,6 +1,5 @@
 package de.studware.rezeptegenerator.parser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.jsoup.Jsoup;

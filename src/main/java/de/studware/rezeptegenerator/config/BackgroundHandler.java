@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import de.studware.rezeptegenerator.GeneratorController;
+import de.studware.rezeptegenerator.data.QueueStatus;
 import de.studware.rezeptegenerator.util.ParserHandler;
 
 public class BackgroundHandler implements Runnable {

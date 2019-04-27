@@ -1,4 +1,4 @@
-package de.studware.rezeptegenerator.config;
+package de.studware.rezeptegenerator.data;
 
 public class QueueStatus {
 	private final int percentage;

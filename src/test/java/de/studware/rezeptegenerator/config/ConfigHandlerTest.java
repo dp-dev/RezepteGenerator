@@ -1,4 +1,4 @@
-package de.studware.rezeptegenerator.util;
+package de.studware.rezeptegenerator.config;
 
 import static org.junit.Assert.assertEquals;
 
